@@ -27,7 +27,6 @@ public class ExpenseParticipant {
     @Column(nullable = false)
     private Status status = Status.PENDING;
 
-    // Getters and Setters
     public enum Status {
         PENDING, APPROVE_SETTLE, SETTLED
     }

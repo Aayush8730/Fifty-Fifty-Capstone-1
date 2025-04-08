@@ -56,7 +56,6 @@ public class UserService {
     }
 
     public void registerUser(User user) {
-        // Prefix password with {noop} for testing purpose
         user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
     }
@@ -72,7 +71,7 @@ public class UserService {
 
         if (authentication.isAuthenticated()) {
             String token = jwtService.generateToken(user.getName());
-            Long userId = userRepository.findByName(user.getName()).getUserId(); // Fetch user ID
+            Long userId = userRepository.findByName(user.getName()).getUserId();
 
             AuthResponse response = new AuthResponse(token, userId);
             return ResponseEntity.ok(response);
@@ -81,9 +80,10 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
-
-    // Customize based on your UserDetailsImpl
-
+    public boolean isUsernameInUse(String name) {
+        User user = userRepository.findByName(name);
+        return user != null;
+    }
     }
 
 

@@ -38,11 +38,23 @@ public class UserController {
         if (userService.isEmailInUse(user.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
         }
+
+        if (userService.isUsernameInUse(user.getName())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already taken");
+        }
+
+        if (user.getPassword().length() < 8) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password must be at least 8 characters long");
+        }
+
+        if (!user.getEmail().endsWith("@gmail.com")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email must end with @gmail.com");
+        }
         userService.registerUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
     }
 
-    @GetMapping("/{id:[0-9]+}") // Only match numeric IDs
+    @GetMapping("/{id:[0-9]+}")
     public Optional<User> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
@@ -52,7 +64,7 @@ public class UserController {
         return userService.addUser(user);
     }
 
-    @DeleteMapping("/{id:[0-9]+}") // Only match numeric IDs
+    @DeleteMapping("/{id:[0-9]+}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }

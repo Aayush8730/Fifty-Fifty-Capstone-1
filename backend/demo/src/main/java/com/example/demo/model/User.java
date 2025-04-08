@@ -11,15 +11,15 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId; // Kept the original name
+    private Long userId;
 
-    @Column(nullable = false)
+    @Column(nullable = false , unique = true)
     private String name;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false) // Ensure password is not null
+    @Column(nullable = false)
     private String password;
 
     @Column(unique = true)
@@ -45,7 +45,6 @@ public class User {
         this.password = password;
     }
 
-    // Getters and Setters
     public Long getUserId() {
         return userId;
     }

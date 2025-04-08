@@ -27,7 +27,6 @@ public class Group {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // Default constructor
     public Group() {}
 
     public void setCreatedAt(LocalDateTime createdAt) {
@@ -35,7 +34,6 @@ public class Group {
     }
 
 
-    // Lifecycle callback to set createdAt before persisting
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

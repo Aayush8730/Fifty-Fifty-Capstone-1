@@ -41,21 +41,18 @@ public class GroupController {
         return ResponseEntity.noContent().build();
     }
 
-    // Add a member to a group
     @PostMapping("/{groupId}/members/{userId}")
     public ResponseEntity<Group> addMemberToGroup(@PathVariable Long groupId, @PathVariable Long userId) {
         Group updatedGroup = groupService.addMemberToGroup(groupId, userId);
         return ResponseEntity.ok(updatedGroup);
     }
 
-    // Remove a member from a group
     @DeleteMapping("/{groupId}/members/{userId}")
     public ResponseEntity<Group> removeMemberFromGroup(@PathVariable Long groupId, @PathVariable Long userId) {
         Group updatedGroup = groupService.removeMemberFromGroup(groupId, userId);
         return ResponseEntity.ok(updatedGroup);
     }
 
-    // Get all groups for a user
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Group>> getGroupsByUser(@PathVariable Long userId) {
         List<Group> groups = groupService.getGroupsByUser(userId);

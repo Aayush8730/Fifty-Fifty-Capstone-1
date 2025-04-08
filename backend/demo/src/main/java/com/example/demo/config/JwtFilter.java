@@ -23,7 +23,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private JWTService jwtService;
 
     @Autowired
-    private MyUserDetailsService myUserDetailsService; // Explicitly autowire your service
+    private MyUserDetailsService myUserDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -32,7 +32,6 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = null;
         String username = null;
 
-        // Extract the token and username from the Authorization header
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             username = jwtService.extractUserName(token);
